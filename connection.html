@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <link rel="stylesheet" href="1.css" />
+    <meta charset="utf-8">
+    <title>郵件表單</title>
+
+    <style>
+        /* 新增樣式，設定白色框和加粗文字 */
+        #verification-code {
+          border: 2px solid white;
+            font-weight: bold;
+            padding: 10px;
+            font-size: 30px;
+        }
+    </style>
+    <script>
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73)) {
+            alert('請不要打開開發人員工具！');
+                window.close();
+            return false;
+        }
+    };
+
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey && e.key === 'Shift') || (e.shiftKey && e.key === 'Control')) {
+            alert('請不要打開開發人員工具！');
+                window.close();
+            return false;
+        }
+    });
+</script>
+</head>
+<body onload="init()">
+    <form enctype="text/plain" accept-charset="utf-8" class="a">
+        <h2>聯絡我們 contact us</h2>
+        <!-- 暱稱-->
+        <input id="nameText" type="text" name="Nickname" value size="10" placeholder="暱稱 Nickname" required>
+
+        <!-- 寄件者email -->
+        <input id="emailText" type="email" name="Email" value size="15" placeholder="Email" required>
+
+        <!-- 郵件主旨 -->
+        <input id="subText" type="text" name="Subject" value size="15" aria-invalid="false" placeholder="主旨 subject" required>
+
+        <!-- 郵件內容 -->
+        <textarea id="bodyText" name="your-message" cols="30" rows="6" aria-required="true" aria-invalid="false" placeholder="你的訊息 Your Message" required></textarea>
+
+        <!-- 驗證碼容器 -->
+        <div id="verification-code" onclick="changeCode()"></div>
+
+        <!-- 用戶輸入驗證碼的輸入框 -->
+        <label for="user-input">輸入驗證碼 enter confirmation code： </label>
+        <input type="password" id="user-input" value size="9" placeholder="輸入驗證碼">
+
+        <!-- 傳送按鈕 -->
+        <div>
+            <input type="button" value="提交 submit" onclick="validateAndSubmit();">
+            <a id="mailTo"></a>
+        </div>
+    </form>
+
+    <script>
+        var initSubject = ''; // 宣告預設主旨為空
+        var initTo = ''; // 宣告預設傳送對象為空
+        var initBody = ''; // 宣告預設郵件內容為空
+
+        function submitHandler() {
+            // 以下是原有的郵件發送邏輯
+            var to = "gebu8f6479@gmail.com";
+            var name = nameText.value;
+            var email = emailText.value;
+            var subject = subText.value;
+
+            var body = "" + bodyText.value + '%0A%0A%0A';
+            body += "From：" + nameText.value + '%0A';
+            body += "Email：" + emailText.value + '%0A';
+
+            mailTo.href = "mailto:" + to + "?subject=" + subject + "&body=" + body;
+            mailTo.click();
+        }
+
+        function init() {
+            subText.value = initSubject;
+            toText.value = initTo;
+            bodyText.value = initBody;
+            displayCode(); // 初始化時顯示一個驗證碼
+        }
+
+        function generateCode(length) {
+            const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-_&:;/$#@=\%';
+            const numbers = '0123456789';
+
+            let code = '';
+
+            code += numbers.charAt(Math.floor(Math.random() * numbers.length));
+
+            for (let i = 1; i < length; i++) {
+                code += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+
+            return code.split('').sort(() => Math.random() - 0.5).join('');
+        }
+
+        function displayCode() {
+            const codeContainer = document.getElementById('verification-code');
+            const verificationCode = generateCode(8); // 根據需要更改長度
+            codeContainer.textContent = verificationCode;
+        }
+
+        function changeCode() {
+            displayCode();
+        }
+
+        function validateAndSubmit() {
+            const userInput = document.getElementById('user-input').value;
+            const displayedCode = document.getElementById('verification-code').textContent;
+
+            if (userInput === displayedCode) {
+                alert('驗證成功！即將發送郵件。Verification successful! Email will be sent soon.');
+                submitHandler(); // 驗證成功後執行發送郵件的邏輯
+
+                // 清除所有輸入框文字
+                document.getElementById('nameText').value = '';
+                document.getElementById('emailText').value = '';
+                document.getElementById('subText').value = '';
+                document.getElementById('bodyText').value = '';
+                document.getElementById('user-input').value = '';
+            } else {
+                alert('驗證失敗。請重試。verification failed. Please try again.');
+                document.getElementById('user-input').value = ''; // 驗證失敗時清空輸入框
+                // 在驗證失敗時添加相應的邏輯，例如中止表單提交
+            }
+
+            // 變換驗證碼
+            displayCode();
+        }
+
+        displayCode(); // 初始化時顯示一個驗證碼
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+body {
+  font-family: ROBOTO;
+  background-color: #ffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.a{
+  background-color: #0b132b;
+  width: 400px;
+  color: #ffff;
+  padding: 40px;
+  box-shadow: 10px 10px 25px #000000;
+  text-align: center;
+}
+
+.a input{
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  background: none;
+  padding: 20px;
+  font-size: 20px;
+  border-radius: 22px;
+  outline: none;
+  color: #ffff;
+  
+}
+
+.a input[type="text"], .a input[type="password"], .a input[type="email"] {
+  border: 2px solid #3498db;
+  width: 220px;
+}
+
+.a input[type="button"] {
+  width: 150px;
+  border: 2px solid #2ecc71;
+  cursor: pointer;
+}
+
+.a input[type="text"]:focus, .a input[type="password"]:focus, .a input[type="email"]:focus {
+  border-color: #2ecc71 ;
+  width: 280px;
+  transition: 0.5s;
+}
+
+.a input[type="button"]:hover{
+  background-color: #2ecc71;
+  transition: 0.5s;
+}

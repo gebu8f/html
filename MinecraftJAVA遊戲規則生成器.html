@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <link rel="stylesheet" href="style.css"
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minecraft JAVA版遊戲規則指令生成器</title>
+</head>
+<body>
+
+  <div class="rule">
+    <h1>Minecraft遊戲規則生成器</h1>
+    <h2>語言切換language switch</h2>
+    <select id="language" type="text">
+      <option value="zh-TW">繁體中文 Traditional Chinese</option>
+      <option value="en-US">英文English</option>
+    </select>
+    <label for="gameRules">請選擇遊戲規則名稱:</label>
+    <select id="gameRules" class="form-control" type="text">
+      <option value="selectRule_遊戲規則的版本將在此顯示" data-type="none" data-description="遊戲規則的描述將在此顯示" data-default="遊戲規則的預設值將在此顯示">請選擇</option>
+      <option value="announceAdvancements_1.12" data-type="boolean" data-description="是否在聊天框中公告玩家進度的達成" data-default="true">進度通知</option>
+      <option value="blockExplosionDropDecay_1.19.3" data-type="boolean" data-description="由方塊源（除TNT）爆炸炸毀的方塊是否會有機率不掉落" data-default="true">方塊源（除TNT）爆炸是否有機率不掉落物品</option>
+      <option value="commandModificationBlockLimit_1.19.4" data-type="integer" data-description="指定單次指令執行可變更的最大方塊數" data-default="32768(最大)">單次指令執行的最大方塊數</option>
+      <option value="commandBlockOutput_1.4.2" data-type="boolean" data-description="指令方塊執行指令時是否在聊天框中向管理員顯示。" data-default="true">指令方塊執行指令時是否在聊天框中向管理員顯示</option>
+      <option value="doFireTick_1.4.2" data-type="boolean" data-description="火是否會自然傳播和熄滅" data-default="true">更新火焰</option>
+      <option value="doDaylightCycle_1.6.1" data-type="boolean" data-description="是否進行晝夜循環" data-default="true">日夜交替</option>
+      <option value="doWeatherCycle_1.11" data-type="boolean" data-description="是否進行天氣循環" data-default="true">更新天氣</option>
+      <option value="disableRaids_1.14.3" data-type="boolean" data-description="是否停用突襲" data-default="false">停用突襲</option>
+      <option value="doLimitedCrafting_1.12" data-type="boolean" data-description="玩家是否只能合成已解鎖合成配方的物品" data-default="false">需要配方才能合成</option>
+      <option value="doImmediateRespawn_1.15" data-type="boolean" data-description="玩家死亡時是否不顯示死亡介面直接重生" data-default="false">立即重生</option>
+      <option value="doInsomnia_1.15" data-type="boolean" data-description="夜魅是否在夜晚生成" data-default="true">生成夜魅</option>
+      <option value="doPatrolSpawning_1.15.2" data-type="boolean" data-description="控制掠奪者巡邏隊的生成" data-default="true">生成掠奪者巡邏隊</option>
+      <option value="doMobLoot_1.4.2" data-type="boolean" data-description="是否使生物掉落戰利品" data-default="true">掉落生物戰利品</option>
+      <option value="doTileDrops_1.4.2" data-type="boolean" data-description="是否使方塊掉落物品" data-default="true">掉落方塊</option>
+      <option value="doTraderSpawning_1.15.2" data-type="boolean" data-description="控制流浪商人的生成" data-default="true">生成流浪商人</option>
+      <option value="doVinesSpread_1.19.4" data-type="boolean" data-description="決定藤蔓是否會向周圍擴散，不影響洞穴藤蔓、扭曲藤和垂泣藤" data-default="true">決定藤蔓擴散</option>
+      <option value="doWardenSpawning_1.19" data-type="boolean" data-description="伏守者是否生成" data-default="true">生成伏守者</option>
+      <option value="doEntityDrops_1.8.1" data-type="boolean" data-description="是否使生物掉落物品" data-default="true">掉落實體裝備</option>
+      <option value="doMobSpawning_1.4.2" data-type="boolean" data-description="是否生成生物" data-default="true">生成生物</option>
+      <option value="disableElytraMovementCheck_1.9" data-type="boolean" data-description="是否讓伺服器停止檢查使用鞘翅玩家的移動速度。有助於減輕因伺服器延遲而導致的飛行卡頓，但有可能導致生存模式下玩家飛行過快（作弊）。" data-default="false">停用鞘翅移動檢測</option>
+      <option value="drowningDamage_1.15" data-type="boolean" data-description="玩家是否承受窒息傷害" data-default="true">造成溺水傷害</option>
+      <option value="enderPearlsVanishOnDeath_1.20.2" data-type="boolean" data-description="被拋出的終界珍珠是否會在擲出它的玩家死亡後消失" data-default="true">拋出的終界珍珠玩家死亡後是否消失</option>
+      <option value="fallDamage_1.15" data-type="boolean" data-description="玩家是否會受到摔落傷害" data-default="true">造成摔落傷害</option>
+      <option value="fireDamage_1.15" data-type="boolean" data-description="玩家是否會受到火焰傷害" data-default="true">造成火焰傷害</option>
+      <option value="forgiveDeadPlayers_1.16" data-type="boolean" data-description="當被激怒的條件敵對生物的目標玩家死亡時，該生物是否恢復未激怒狀態。" data-default="1.16">原諒死者</option>
+      <option value="freezeDamage_1.17" data-type="boolean" data-description="玩家是否承受冰凍傷害。" data-default="true">造成冰凍傷害</option>
+      <option value="globalSoundEvents_1.19.3" data-type="boolean" data-description="玩家是否能聽到可無視距離播放給全部玩家的特定遊戲事件音效。" data-default="true">玩家是否能聽到全玩家的遊戲事件音效</option>
+      <option value="keepInventory_1.4.2" data-type="boolean" data-description="玩家死亡時是否掉落物品" data-default="false">死亡後保留物品欄</option>
+      <option value="lavaSourceConversion_1.19.3" data-type="boolean" data-description="流動的熔岩是否可產生熔岩源。" data-default="false">流動的熔岩是否可產生熔岩源</option>
+      <option value="logAdminCommands_1.8" data-type="boolean" data-description="是否在伺服器日誌中記錄管理員使用過的指令。" data-default="true">記錄管理員指令</option>
+      <option value="maxCommandChainLength_1.12" data-type="integer" data-description="決定了連鎖式指令方塊能連鎖執行的總數量。" data-default="65536">指令連鎖大小限制</option>
+      <option value="maxEntityCramming_1.11" data-type="integer" data-description="每塊方塊最多可以容納多少個生物" data-default="24">實體擠壓上限</option>
+      <option value="mobExplosionDropDecay_1.19.3"" data-type="boolean" data-description="由生物源爆炸炸毀的方塊是否會有機率不掉落。" data-default="true">生物爆炸是否有機率不掉落物品</option>
+      <option value="mobGriefing_1.4.2" data-type="boolean" data-description="生物是否能夠進行破壞性行為" data-default="true">允許生物的破壞行為</option>
+      <option value="naturalRegeneration_1.6.1" data-type="boolean" data-description="玩家是否能在飢餓值足夠時自然恢復生命值" data-default="true">自然回血</option>
+      <option value="playersNetherPortalCreativeDelay_1.20.3" data-type="integer" data-description="創造模式下的玩家需要待在地獄傳送門內多少遊戲刻才能進入另一個維度。" data-default="1">創造模式玩家進入另一維度所需等待時間</option>
+      <option value="playersNetherPortalDefaultDelay_1.20.3" data-type="integer" data-description="非創造模式下的玩家需要待在地獄傳送門內多少遊戲刻才能進入另一個維度。" data-default="80">非創造模式玩家進入另一維度所需等待時間</option>
+      <option value="playersSleepingPercentage_1.17" data-type="integer" data-description="設定跳過夜晚所需的入睡玩家所占百分比。" data-default="100">睡眠比例</option>
+      <option value="projectilesCanBreakBlocks_1.20.3" data-type="boolean" data-description="投射物能否破壞歌萊花、鐘乳石和飾紋陶罐。" data-default="true">投射物能否破壞部分方塊</option>
+      <option value="randomTickSpeed_1.8" data-type="integer" data-description="隨機刻更新速度" data-default="3">隨機刻速率</option>
+      <option value="reducedDebugInfo_1.8" data-type="boolean" data-description="是否減少除錯資訊" data-default="false">簡化F3資訊</option>
+      <option value="sendCommandFeedback_1.8" data-type="boolean" data-description="是否向玩家發送命令反饋" data-default="true">回傳指令回饋</option>
+      <option value="showDeathMessages_1.8" data-type="boolean" data-description="是否在聊天框中顯示玩家的死亡訊息" data-default="true">顯示死亡訊息</option>
+      <option value="snowAccumulationHeight_1.19.3" data-type="integer" data-description="下雪時可在一格方塊空間內堆積的雪的最高層數。" data-default="1">雪在下雪時的最大堆積層數</option>
+      <option value="spawnRadius_1.9" data-type="integer" data-description="首次進入伺服器的玩家和沒有重生點的死亡玩家在重生時與世界重生點座標的距離。" data-default="10">重生點半徑</option>
+      <option value="spectatorsGenerateChunks_1.9" data-type="boolean" data-description="是否允許旁觀者模式的玩家生成區塊。" data-default="true">允許旁觀者生成地形</option>
+      <option value="tntExplosionDropDecay_1.19.3" data-type="boolean" data-description="由TNT爆炸炸毀的方塊是否會有機率不掉落。" data-default="false">TNT爆炸時方塊是否有機會不掉落物品</option>
+      <option value="universalAnger_1.16" data-type="boolean" data-description="被激怒的條件敵對生物是否攻擊附近任何玩家（而非只攻擊激怒它們的玩家）。當forgiveDeadPlayers遊戲規則關閉時會有更好的效果。" data-default="false">無差別憤怒</option>
+      <option value="waterSourceConversion_1.19.3" data-type="boolean" data-description="流動的水是否可產生水源。" data-default="true">流動的水是否可產生水源</option>
+    </select>
+
+    <label for="ruleValues">請選擇或輸入一個值或選項：</label>
+    <select id="ruleValues" class="form-control" type='text'>
+      <option value="selectValue" data-type="none">請選擇</option>
+      <option value="true" data-type="boolean">true</option>
+      <option value="false" data-type="boolean">false</option>
+      <!-- Add more boolean options similarly -->
+    </select>
+
+    <input type="number" id="numberValue" class="form-control" style="display: none" />
+
+    <p class="version">適用版本（只這個版本以上）:遊戲規則的版本將在此顯示</p>
+    <p class="defaultValue">預設值: 遊戲規則的預設值將在此顯示</p>
+    <p class="description">描述: 遊戲規則的描述將在此顯示</p>
+
+    <span class="generatedCommand" id="generatedCommandParagraph">生成指令: /gamerule </span>
+
+    <button id="copyCommandButton" type="submit">複製生成指令</button>
+    <h1>By.阿蒲</h1>
+  </div>
+
+  <!-- Add more rules similarly -->
+<script>
+  const gameRulesSelect = document.getElementById('gameRules');
+  const ruleValuesSelect = document.getElementById('ruleValues');
+  const numberValueInput = document.getElementById('numberValue');
+  const defaultValueParagraph = document.querySelector('.defaultValue');
+  const versionParagraph = document.querySelector('.version');
+  const descriptionParagraph = document.querySelector('.description');
+  const generatedCommandParagraph = document.getElementById('generatedCommandParagraph');
+  const copyCommandButton = document.getElementById('copyCommandButton');
+  const languageSelect = document.getElementById('language');
+  
+  languageSelect.addEventListener('change', function () {
+      const selectedLanguage = languageSelect.value;
+      
+      // 根據所選語言設置對應的檔案路徑
+      let filePath;
+      if (selectedLanguage === 'zh-TW') {
+        filePath = 'MinecraftJAVA遊戲規則生成器.html'; // 中文介面的檔案路徑
+      } else if (selectedLanguage === 'en-US') {
+        filePath = 'Minecraft-JAVA-games-rules-generator.html'; // 英文介面的檔案路徑
+      }
+
+      // 跳轉到新的檔案
+      window.location.href = filePath;
+    });
+
+  gameRulesSelect.addEventListener('change', function () {
+    const selectedOption = gameRulesSelect.options[gameRulesSelect.selectedIndex];
+    const type = selectedOption.getAttribute('data-type');
+    const description = selectedOption.getAttribute('data-description');
+    const defaultVal = selectedOption.getAttribute('data-default');
+
+    if (type === 'boolean') {
+      ruleValuesSelect.value = 'selectValue'; // Set default to "請選擇"
+      ruleValuesSelect.style.display = 'block';
+      numberValueInput.style.display = 'none';
+    } else if (type === 'integer') {
+      ruleValuesSelect.style.display = 'none';
+      numberValueInput.style.display = 'block';
+      // Reset input value to ensure it's not negative
+      numberValueInput.value = '';
+    } else {
+      ruleValuesSelect.style.display = 'none';
+      numberValueInput.style.display = 'none';
+    }
+
+    const version = selectedOption.value.split('_')[1];
+    versionParagraph.textContent = `適用版本（只這個版本以上）：${version}`;
+    descriptionParagraph.textContent = `描述: ${description}`;
+    defaultValueParagraph.textContent = `預設值: ${defaultVal}`;
+    updateGeneratedCommand();
+  });
+
+  ruleValuesSelect.addEventListener('change', function () {
+    updateGeneratedCommand();
+  });
+
+  numberValueInput.addEventListener('input', function () {
+    // Ensure the input value is non-negative
+    numberValueInput.value = Math.max(0, numberValueInput.value);
+    updateGeneratedCommand();
+  });
+
+  copyCommandButton.addEventListener('click', function () {
+    const commandText = generatedCommandParagraph.textContent.split(': ')[1];
+    navigator.clipboard.writeText(commandText).then(() => {
+      alert('已複製生成指令！');
+    }).catch((error) => {
+      alert('複製指令失敗', error);
+    });
+  });
+
+  function updateGeneratedCommand() {
+    const type = gameRulesSelect.options[gameRulesSelect.selectedIndex].getAttribute('data-type');
+    let value;
+    if (type === 'boolean') {
+      value = ruleValuesSelect.options[ruleValuesSelect.selectedIndex].text;
+    } else if (type === 'integer') {
+      value = numberValueInput.value;
+    } else {
+      value = '';
+    }
+
+    const selectedRule = gameRulesSelect.value.split('_')[0];
+    generatedCommandParagraph.innerHTML = `生成指令: /gamerule ${selectedRule} ${value}`;
+  }
+</script>
+
+</body>
+</html>

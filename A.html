@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8">
+  <title>郵件表單</title>
+
+  <style>
+    /* 新增樣式，設定白色框和加粗文字 */
+    #hcaptcha-container {
+      border: 2px solid white;
+      font-weight: bold;
+      padding: 10px;
+    }
+  </style>
+
+  <script src="https://hcaptcha.com/1/api.js?render=explicit" async defer></script>
+</head>
+<body onload="init()">
+  <form enctype="text/plain" accept-charset="utf-8" class="a">
+    <h2>聯絡我們 contact us</h2>
+    <input id="nameText" type="text" name="Nickname" value size="10" placeholder="暱稱 Nickname" required>
+
+    <input id="emailText" type="email" name="Email" value size="15" placeholder="Email" required>
+
+    <input id="subText" type="text" name="Subject" value size="15" aria-invalid="false" placeholder="主旨 subject" required>
+
+    <textarea id="bodyText" name="your-message" cols="30" rows="6" aria-required="true" aria-invalid="false" placeholder="你的訊息 Your Message" required></textarea>
+
+    <div id="hcaptcha-container"></div>
+
+    <div>
+      <input type="button" value="提交 submit" onclick="validateAndSubmit();">
+      <a id="mailTo"></a>
+    </div>
+  </form>
+
+  <script>
+    var initSubject = ''; // 宣告預設主旨為空
+    var initTo = ''; // 宣告預設傳送對象為空
+    var initBody = ''; // 宣告預設郵件內容為空
+
+    function submitHandler() {
+      // 以下是原有的郵件發送邏輯
+      var to = "public@mail.gebu8f.eu.org";
+      var name = nameText.value;
+      var email = emailText.value;
+      var subject = subText.value;
+
+      var body = "" + bodyText.value + '%0A%0A%0A';
+      body += "From：" + nameText.value + '%0A';
+      body += "Email：" + emailText.value + '%0A';
+
+      mailTo.href = "mailto:" + to + "?subject=" + subject + "&body=" + body;
+      mailTo.click();
+    }
+
+    function init() {
+      subText.value = initSubject;
+      toText.value = initTo;
+      bodyText.value = initBody;
+
+      // 初始化 hCaptcha
+      const hcaptcha = new hCaptcha({
+        siteKey: 'YOUR_SITE_KEY',
+        container: 'hcaptcha-container',
+        size: 'normal',
+        theme: 'light',
+        language: 'zh-TW',
+      });
+    }
+
+    function validateAndSubmit() {
+      const token = hcaptcha.getToken();
+
+      if (token) {
+        // 驗證成功後執行發送郵件的邏輯
+
+        // 清除所有輸入框文字
+        document.getElementById('nameText').value = '';
+        document.getElementById('emailText').value = '';
+        document.getElementById('subText').value = '';
+        document.getElementById('bodyText').value = '';
+
+        submitHandler();
+      } else {
+        alert('驗證失敗。請重試。verification failed. Please try again.');
+
+        // 重置 hCaptcha
+        hcaptcha.reset();
+      }
+    }
+  </script>
+</body>
+</html>
